@@ -1,0 +1,45 @@
+From 34059a15edd2d224411c469a2ce55e8071c9bdba Mon Sep 17 00:00:00 2001
+From: Ole Henrik Jahren <olehenja@alumni.ntnu.no>
+Date: Sun, 15 Jan 2012 23:31:32 +0100
+Subject: [PATCH] add support for passing CFLAGS and CPPFLAGS to Makefile
+
+---
+ Makefile |   12 +++++++++---
+ 1 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index baff08d..3f63a64 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,8 +1,14 @@
++CFLAGS_SUPP = -Wall -fPIC
++override CFLAGS := $(CFLAGS_SUPP) $(CFLAGS)
++
+ #Add -DFORCE_PC3_IDENT to CFLAGS to force the identification of
+ #a Parallel Cable III
+ #Add -DNO_USB_RESET to disable the hard reset of the cable when
+ #opening the device
+-CFLAGS=-Wall -fPIC -DUSB_DRIVER_VERSION="\"$(shell stat -c '%y' usb-driver.c |cut -d\. -f1)\"" #-DFORCE_PC3_IDENT -DNO_USB_RESET
++CPPFLAGS_SUPP = -DUSB_DRIVER_VERSION="\"$(shell stat -c '%y' usb-driver.c |cut -d\. -f1)\"" #-DFORCE_PC3_IDENT -DNO_USB_RESET
++override CPPFLAGS := $(CPPFLAGS_SUPP) $(CPPFLAGS)
++
++LDFLAGS =
+ 
+ LIBS=-ldl -lusb -lpthread
+ 
+@@ -26,10 +32,10 @@ all: $(SOBJECTS)
+ 	@file libusb-driver.so | grep x86-64 >/dev/null && echo Built library is 64 bit. Run \`make lib32\' to build a 32 bit version || true
+ 
+ libusb-driver.so: $(SRC) $(HEADER) Makefile
+-	$(CC) $(CFLAGS) $(SRC) -o $@ $(LIBS) -shared
++	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(SRC) -o $@ $(LIBS) -shared
+ 
+ libusb-driver-DEBUG.so: $(SRC) $(HEADER) Makefile
+-	$(CC) -DDEBUG $(CFLAGS) $(SRC) -o $@ $(LIBS) -shared
++	$(CC) -DDEBUG $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(SRC) -o $@ $(LIBS) -shared
+ 
+ lib32:
+ 	$(MAKE) LIBVER=32 clean all
+-- 
+1.7.8.3
+

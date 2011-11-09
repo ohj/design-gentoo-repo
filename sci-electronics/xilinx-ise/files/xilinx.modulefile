@@ -1,0 +1,15 @@
+#%Module1.0
+
+proc ModulesHelp {} {
+	global version
+	puts stderr "\tXilinx ISE $version\n"
+}
+
+set		version "@version@"
+
+module-whatis	"Xilinx ISE $version"
+
+prereq		xi-wrapper
+conflict	xilinx
+
+setenv		XI_WRAPPER_VERSION "$version"

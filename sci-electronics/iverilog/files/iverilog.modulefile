@@ -1,0 +1,15 @@
+#%Module1.0
+
+proc ModulesHelp {} {
+	global version
+	puts stderr "\tIcarus Verilog $version\n"
+}
+
+set		version "@version@"
+set		prefix "@prefix@"
+
+module-whatis	"Icarus Verilog $version"
+conflict	iverilog
+
+append-path	PATH "@bindir@"
+append-path	MANPATH "@mandir@"

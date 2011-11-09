@@ -1,0 +1,14 @@
+#%Module1.0
+
+proc ModulesHelp {} {
+	global version
+	puts stderr "\tOpen Verification Language $version\n"
+}
+
+set		version "@version@"
+
+module-whatis	"Open Verification Language $version"
+conflict	std_ovl
+
+append-path	PATH "@bindir@"
+setenv		OVL_PATH "@prefix@/$version"

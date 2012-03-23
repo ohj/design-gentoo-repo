@@ -1,11 +1,12 @@
 # Distributed under the terms of the GNU General Public License v2+
 
 EAPI=4
-inherit eutils multilib toolchain-funcs
+inherit eutils multilib toolchain-funcs git-2
 
+EGIT_REPO_URI="git://github.com/ohj/xi-wrapper.git"
 DESCRIPTION="Xilinx ISE Toolchain Wrapper"
 HOMEPAGE="https://github.com/ohj/xi-wrapper"
-SRC_URI="https://github.com/ohj/xi-wrapper/tarball/v${PV} -> ${P}.tar.gz"
+SRC_URI=""
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -19,13 +20,6 @@ RDEPEND="
 "
 
 RESTRICT=""
-
-S="${WORKDIR}"
-
-src_prepare() {
-	cd "${WORKDIR}"/ohj-${PN}-*
-	S="$(pwd)"
-}
 
 src_compile() {
 	emake \

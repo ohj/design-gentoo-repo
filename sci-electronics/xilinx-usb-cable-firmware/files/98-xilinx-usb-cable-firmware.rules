@@ -1,5 +1,5 @@
 # version 0003
-ATTRS{idVendor}=="03fd", ATTRS{idProduct}=="0008", MODE="666"
+ATTRS{idVendor}=="03fd", ATTRS{idProduct}=="0008", GROUP="xilinxcable", MODE="660"
 ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="03fd", ATTRS{idProduct}=="0007", RUN+="/sbin/fxload -v -t fx2 -I /etc/hotplug/usb/xusbdfwu.fw/xusbdfwu.hex -D $tempnode"
 ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="03fd", ATTRS{idProduct}=="0009", RUN+="/sbin/fxload -v -t fx2 -I /etc/hotplug/usb/xusbdfwu.fw/xusb_xup.hex -D $tempnode"
 ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="03fd", ATTRS{idProduct}=="000d", RUN+="/sbin/fxload -v -t fx2 -I /etc/hotplug/usb/xusbdfwu.fw/xusb_emb.hex -D $tempnode"

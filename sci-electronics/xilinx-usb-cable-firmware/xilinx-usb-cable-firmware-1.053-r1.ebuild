@@ -32,6 +32,10 @@ pkg_nofetch() {
 	eerror "  '${DISTDIR}'"
 }
 
+pkg_setup() {
+	enewgroup xilinxcable
+}
+
 src_compile() {
 	:
 }

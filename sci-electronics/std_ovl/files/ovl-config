@@ -34,14 +34,12 @@ die()
 usage()
 {
 	cat >&2 << EOF
-usage: $prog <language> [options]
+usage: $prog [options] [--]
 
-Legal languages are:
-  verilog
-
-Options:
-  --lib
-  --include
+      --format=fmt              Format of command line. Default is iverilog.
+  -h, --help                    Show this help message.
+      --include                 Output include directories.
+      --lib                     Output library directories.
 EOF
 }
 
@@ -53,37 +51,72 @@ if test ! -d "$OVL_PATH" ; then
 	die "$prog: error: could not find directory '$OVL_PATH'"
 fi
 
-if test "$#" -lt 1 ; then
-	usage
-	echo "" >&2
-	die "$prog: error: you must atleast specify a language"
-fi
+opt_lib=0
+opt_include=0
+opt_format="iverilog"
 
-language="$1"
-shift
-
-output=""
-while test $# -gt 0 ; do
-	arg="$1"
-	tmp=""
-	shift
-	case "$arg" in
+while [ $# -gt 0 ] ; do
+	case "$1" in
+	--help|-h)
+		usage
+		exit 0
+		;;
+	--format=*)
+		opt_format=${1:9}
+		;;
 	--lib)
-		tmp="-y$OVL_PATH"
+		opt_lib=1
 		;;
 	--include)
-		tmp="-I$OVL_PATH"
+		opt_include=1
+		;;
+	--)
+		shift
+		break
+		;;
+	-*)
+		die "$prog: error: unknown option '$1'"
 		;;
 	*)
-		die "$prog: error: unknown option '$arg'"
+		break
 		;;
 	esac
+	shift
+done
+
+case "$opt_format" in
+isim)
+	libopt="-sourcelibdir "
+	extopt="-sourcelibext .vlib"
+	includeopt="-include "
+	;;
+iverilog)
+	libopt="-y"
+	extopt="-Y.vlib"
+	includeopt="-I"
+	;;
+verilator)
+	libopt="-y"
+	extopt="+libext+.vlib"
+	includeopt="+incdir+"
+	;;
+*)
+	die "$prog: error: illegal format '$opt_format'"
+	;;
+esac
+
+output=""
+if test $opt_lib -eq 1 ; then
+	output="$extopt $libopt$OVL_PATH"
+fi
+if test $opt_include -eq 1 ; then
+	tmp="$includeopt$OVL_PATH"
 	if test -n "$output" ; then
 		output="$output $tmp"
 	else
 		output="$tmp"
 	fi
-done
+fi
 
 if test -n "$output" ; then
 	echo "$output"

@@ -18,6 +18,13 @@ RDEPEND="
 		app-admin/environment-modules
 		sci-electronics/xi-wrapper[modulefile?]
 	)
+	media-fonts/font-bitstream-100dpi
+	media-fonts/font-bitstream-75dpi
+	media-fonts/font-adobe-100dpi
+	media-fonts/font-adobe-75dpi
+	net-nds/portmap
+	sys-libs/libstdc++-v3
+	x11-libs/openmotif:2.2
 	${DEPEND}
 "
 

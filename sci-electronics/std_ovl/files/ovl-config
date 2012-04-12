@@ -96,7 +96,7 @@ iverilog)
 	includeopt="-I"
 	;;
 verilator)
-	libopt="-y"
+	libopt="-y "
 	extopt="+libext+.vlib"
 	includeopt="+incdir+"
 	;;

@@ -26,7 +26,7 @@ src_prepare() {
 	(
 		echo "# Add ${PN} bindir to be checked for broken linkage"
 		echo "SEARCH_DIRS=\"/opt/${PN}/${PV}/bin\""
-	) > "${S}/96-${PN}-${PV}" || die "revdep-rebuild file creation failed"
+	) > "${S}/96-${P}" || die "revdep-rebuild file creation failed"
 }
 
 src_configure() {
@@ -56,7 +56,7 @@ src_install() {
 	doins README
 	use doc && doins verilator.html verilator.pdf verilator.txt
 	insinto /etc/revdep-rebuild
-	doins "96-${PN}-${PV}"
+	doins "96-${P}"
 	if use modulefile ; then
 		insinto /etc/modulefiles/${PN}
 		newins "${FILESDIR}/verilator.modulefile" "${PV}"

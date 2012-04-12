@@ -9,7 +9,3 @@
 # Ole Henrik Jahren <olehenja@alumni.ntnu.no> (05 Jun 2011)
 # Icarus Verilog latest version from git
 =sci-electronics/iverilog-9999
-
-# Ole Henrik Jahren <olehenja@alumni.ntnu.no> (05 Jun 2011)
-# Verilator latest version from git
-=sci-electronics/verilator-9999

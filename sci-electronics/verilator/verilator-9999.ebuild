@@ -11,7 +11,7 @@ SRC_URI=""
 
 LICENSE="|| ( Artistic-2 LGPL-3 )"
 SLOT="${PV}"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="doc +modulefile"
 
 DEPEND="

@@ -1,7 +1,3 @@
 # Ole Henrik Jahren <olehenja@alumni.ntnu.no> (27 Mar 2012)
 # loops forever when dumpfile is reloaded
 >=sci-electronics/gtkwave-3.3.34
-
-# Ole Henrik Jahren <olehenja@alumni.ntnu.no> (23 Mar 2012)
-# xi-wrapper latest version from git
-=sci-electronics/xi-wrapper-9999

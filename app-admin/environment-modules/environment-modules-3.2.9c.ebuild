@@ -1,7 +1,9 @@
 # Distributed under the terms of the GNU General Public License v2
-# Mostly stolen from Fedora spec files
+# Mostly borrowed from Fedora spec files
 
 EAPI=4
+
+inherit multilib eutils
 
 MY_PV=3.2.9
 DESCRIPTION="Provides for an easy dynamic modification of a user's environment via modulefiles."
@@ -10,7 +12,7 @@ SRC_URI="http://downloads.sourceforge.net/project/modules/Modules/modules-${MY_P
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 arm64"
 IUSE=""
 
 DEPEND="
@@ -23,7 +25,8 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/modules-${MY_PV}"
 
 src_prepare() {
-	epatch "${FILESDIR}/${PN}-${MY_PV}-bindir.patch"
+	epatch "${FILESDIR}/modules-errorLine.patch" \
+	"${FILESDIR}/${PN}-${MY_PV}-bindir.patch"
 	(
 		echo "# Add ${PN} bindir to be checked for broken linkage"
 		echo "SEARCH_DIRS=\"/usr/share/Modules/bin\""
@@ -42,7 +45,9 @@ src_configure() {
 		--prefix=/usr/share \
 		--exec-prefix=/usr/share/Modules \
 		--with-man-path=/usr/share/man \
-		--with-module-path=/etc/modulefiles
+		--with-module-path=/etc/modulefiles \
+		--with-tcl-lib=/usr/$(get_libdir) \
+		--with-tcl-inc=/usr/include
 
 		#--with-debug=42 --with-log-facility-debug=stderr
 }

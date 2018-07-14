@@ -1,0 +1,14 @@
+diff -ruN modules.old/cmdModule.c modules/cmdModule.c
+--- modules.old/cmdModule.c	2010-11-11 18:23:18.000000000 +0000
++++ modules/cmdModule.c	2018-07-14 00:02:27.924000000 +0100
+@@ -639,10 +639,6 @@
+ 
+             case TCL_OK:	gotPartial = 0;
+ 			        continue;	/** while **/
+-	    
+-            case TCL_ERROR:	interp->errorLine = ((linenum-1)-gotPartial) +
+-				    interp->errorLine;
+-	    			/* FALLTHROUGH */
+ 
+             case TCL_LEVEL0_RETURN:
+ 	    			break;	/** switch **/
